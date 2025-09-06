@@ -1,0 +1,546 @@
+//
+//  DirectionsView11.swift
+//  Pushtangle_UI
+//
+//  Created by Pushkar Seshadri on 7/20/24.
+//
+
+import SwiftUI
+
+struct DirectionsView11: View {
+    @Environment(\.dismiss) var dismiss
+    @State private var numbers: [Int] = [1,2,3,4,5,6,7,8,9]
+    @State private var shapes: [String] = ["cross.fill", "heart.fill", "star.fill", "suit.spade.fill", "pentagon.fill", "circle.fill", "triangle.fill", "square.fill", "diamond.fill"]
+    @State private var colors: [Color] = [.red, .indigo, .green, .purple, .brown, .orange, .cyan, .yellow, .gray]
+
+    var body: some View {
+        if #available(iOS 16.0, *) {
+            NavigationStack{
+                VStack{
+                    Text("Directions")
+                        .font(.custom("Times New Roman", size: 35))
+                        .bold()
+                }
+                Spacer()
+                
+                
+                VStack(spacing: 2.0){
+                    HStack(spacing: 47.0){//top 3 buttons
+                        Button(action: {
+                            
+                        }) {
+                            Image(systemName: "arrow.up")
+                                .resizable()
+                                .aspectRatio(contentMode: .fill)
+                                .padding()
+                                .frame(width: 40, height: 20.0)
+                                .background(Color.pink)
+                                .foregroundColor(.white)
+                                .cornerRadius(10)
+                        }
+                        
+                        Button(action: {
+                        }) {
+                            Image(systemName: "arrow.up")
+                                .resizable()
+                                .aspectRatio(contentMode: .fill)
+                                .padding()
+                                .frame(width: 40, height: 20.0)
+                                .background(Color.pink)
+                                .foregroundColor(.white)
+                                .cornerRadius(10)
+                            
+                        }
+                        
+                        Button(action: {
+                            print("")
+                        }) {
+                            Image(systemName: "arrow.up")
+                                .resizable()
+                                .aspectRatio(contentMode: .fill)
+                                .padding()
+                                .frame(width: 40, height: 20.0)
+                                .background(Color.pink)
+                                .foregroundColor(.white)
+                                .cornerRadius(10)
+                        }
+                        
+                    }
+                    HStack(spacing: 2.0) {
+                        ZStack{
+                            Image(systemName: "circle")
+                                .resizable()
+                                .frame(width: 15, height: 60)
+                                .foregroundColor(Color.clear)
+                            Button(action: {
+                            }) {
+                                Image(systemName: "arrow.left")
+                                    .resizable()
+                                    .aspectRatio(contentMode: .fill)
+                                    .padding()
+                                    .frame(width: 20.0, height: 40.0)
+                                    .background(Color.pink)
+                                    .foregroundColor(.white)
+                                    .cornerRadius(10)
+                            }
+                        }
+                        ZStack{
+                            Rectangle()
+                                .fill(colors[0])
+                                .frame(width: 85, height: 85)
+                            Image(systemName: shapes[0])
+                                .resizable()
+                                .aspectRatio(contentMode: .fit)
+                                .foregroundColor(Color.black)
+                                .frame(width: 54)
+                            Text(String(numbers[0]))
+                                .foregroundColor(Color.white)
+                                .font(.system(size: 21))
+                            //place winning stuff here
+                            
+                        }
+                        ZStack{
+                            Rectangle()
+                                .fill(colors[1])
+                                .frame(width: 85, height: 85)
+                            Image(systemName: shapes[1])
+                                .resizable()
+                                .aspectRatio(contentMode: .fit)
+                                .foregroundColor(Color.black)
+                                .frame(width: 54)
+                            Text(String(numbers[1]))
+                                .foregroundColor(Color.white)
+                                .font(.system(size: 21))
+                            //place winning stuff here
+                            
+                        }
+                        ZStack{
+                            Rectangle()
+                                .fill(colors[2])
+                                .frame(width: 85, height: 85)
+                            Image(systemName: shapes[2])
+                                .resizable()
+                                .aspectRatio(contentMode: .fit)
+                                .foregroundColor(Color.black)
+                                .frame(width: 54)
+                            Text(String(numbers[2]))
+                                .foregroundColor(Color.white)
+                                .font(.system(size: 21))
+                            //place winning stuff here
+                            
+                        }
+                        ZStack{
+                            Image(systemName: "circle")
+                                .resizable()
+                                .frame(width: 15, height: 60)
+                                .foregroundColor(Color.clear)
+                            Button(action: {
+                            }) {
+                                Image(systemName: "arrow.right")
+                                    .resizable()
+                                    .aspectRatio(contentMode: .fill)
+                                    .padding()
+                                    .frame(width: 20.0, height: 40.0)
+                                    .background(Color.pink)
+                                    .foregroundColor(.white)
+                                    .cornerRadius(10)
+                            }
+                        }
+                    }
+                    HStack(spacing: 2.0) {
+                        ZStack{
+                            Image(systemName: "circle")
+                                .resizable()
+                                .frame(width: 15, height: 60)
+                                .foregroundColor(Color.clear)
+                            Button(action: {
+                            }) {
+                                Image(systemName: "arrow.left")
+                                    .resizable()
+                                    .aspectRatio(contentMode: .fill)
+                                    .padding()
+                                    .frame(width: 20.0, height: 40.0)
+                                    .background(Color.pink)
+                                    .foregroundColor(.white)
+                                    .cornerRadius(10)
+                            }
+                        }
+                        ZStack{
+                            Rectangle()
+                                .fill(colors[3])
+                                .frame(width: 85, height: 85)
+                            Image(systemName: shapes[3])
+                                .resizable()
+                                .aspectRatio(contentMode: .fit)
+                                .foregroundColor(Color.black)
+                                .frame(width: 54)
+                            Text(String(numbers[3]))
+                                .foregroundColor(Color.white)
+                                .font(.system(size: 21))
+                            //place winning stuff here
+                            
+                        }
+                        ZStack{
+                            Rectangle()
+                                .fill(colors[4])
+                                .frame(width: 85, height: 85)
+                            Image(systemName: shapes[4])
+                                .resizable()
+                                .aspectRatio(contentMode: .fit)
+                                .foregroundColor(Color.black)
+                                .frame(width: 54)
+                            Text(String(numbers[4]))
+                                .foregroundColor(Color.white)
+                                .font(.system(size: 21))
+                            //place winning stuff here
+                            
+                        }
+                        ZStack{
+                            Rectangle()
+                                .fill(colors[5])
+                                .frame(width: 85, height: 85)
+                            Image(systemName: shapes[5])
+                                .resizable()
+                                .aspectRatio(contentMode: .fit)
+                                .foregroundColor(Color.black)
+                                .frame(width: 54)
+                            Text(String(numbers[5]))
+                                .foregroundColor(Color.white)
+                                .font(.system(size: 21))
+                            //place winning stuff here
+                            
+                        }
+                        ZStack{
+                            Image(systemName: "circle")
+                                .resizable()
+                                .frame(width: 15, height: 60)
+                                .foregroundColor(Color.clear)
+                            Button(action: {
+                                
+                            }) {
+                                Image(systemName: "arrow.right")
+                                    .resizable()
+                                    .aspectRatio(contentMode: .fill)
+                                    .padding()
+                                    .frame(width: 20.0, height: 40.0)
+                                    .background(Color.pink)
+                                    .foregroundColor(.white)
+                                    .cornerRadius(10)
+                            }
+                        }
+                    }
+                    HStack(spacing: 2.0) {
+                        ZStack{
+                            Image(systemName: "circle")
+                                .resizable()
+                                .frame(width: 15, height: 60)
+                                .foregroundColor(Color.clear)
+                            Button(action: {
+                                
+                            }) {
+                                Image(systemName: "arrow.left")
+                                    .resizable()
+                                    .aspectRatio(contentMode: .fill)
+                                    .padding()
+                                    .frame(width: 20.0, height: 40.0)
+                                    .background(Color.pink)
+                                    .foregroundColor(.white)
+                                    .cornerRadius(10)
+                            }
+                        }
+                        ZStack{
+                            Rectangle()
+                                .fill(colors[6])
+                                .frame(width: 85, height: 85)
+                            Image(systemName: shapes[6])
+                                .resizable()
+                                .aspectRatio(contentMode: .fit)
+                                .foregroundColor(Color.black)
+                                .frame(width: 54)
+                            Text(String(numbers[6]))
+                                .foregroundColor(Color.white)
+                                .font(.system(size: 21))
+                            //place winning stuff here
+                            
+                        }
+                        ZStack{
+                            Rectangle()
+                                .fill(colors[7])
+                                .frame(width: 85, height: 85)
+                            Image(systemName: shapes[7])
+                                .resizable()
+                                .aspectRatio(contentMode: .fit)
+                                .foregroundColor(Color.black)
+                                .frame(width: 54)
+                            Text(String(numbers[7]))
+                                .foregroundColor(Color.white)
+                                .font(.system(size: 21))
+                            //place winning stuff here
+                            
+                        }
+                        ZStack{
+                            Rectangle()
+                                .fill(colors[8])
+                                .frame(width: 85, height: 85)
+                            Image(systemName: shapes[8])
+                                .resizable()
+                                .aspectRatio(contentMode: .fit)
+                                .foregroundColor(Color.black)
+                                .frame(width: 54)
+                            Text(String(numbers[8]))
+                                .foregroundColor(Color.white)
+                                .font(.system(size: 21))
+                            //place winning stuff here
+                            
+                        }
+                        ZStack{
+                            Image(systemName: "circle")
+                                .resizable()
+                                .frame(width: 15, height: 60)
+                                .foregroundColor(Color.clear)
+                            Button(action: {
+                                
+                            }) {
+                                Image(systemName: "arrow.right")
+                                    .resizable()
+                                    .aspectRatio(contentMode: .fill)
+                                    .padding()
+                                    .frame(width: 20.0, height: 40.0)
+                                    .background(Color.pink)
+                                    .foregroundColor(.white)
+                                    .cornerRadius(10)
+                            }
+                        }
+                    }
+                    HStack(spacing: 47.0){//botom 3 buttons
+                        Button(action: {
+                            
+                        }) {
+                            Image(systemName: "arrow.down")
+                                .resizable()
+                                .aspectRatio(contentMode: .fill)
+                                .padding()
+                                .frame(width: 40, height: 20.0)
+                                .background(Color.pink)
+                                .foregroundColor(.white)
+                                .cornerRadius(10)
+                        }
+                        Button(action: {
+                        }) {
+                            Image(systemName: "arrow.down")
+                                .resizable()
+                                .aspectRatio(contentMode: .fill)
+                                .padding()
+                                .frame(width: 40, height: 20.0)
+                                .background(Color.pink)
+                                .foregroundColor(.white)
+                                .cornerRadius(10)
+                        }
+                        Button(action: {
+                            print("")
+                        }) {
+                            Image(systemName: "arrow.down")
+                                .resizable()
+                                .aspectRatio(contentMode: .fill)
+                                .padding()
+                                .frame(width: 40, height: 20.0)
+                                .background(Color.pink)
+                                .foregroundColor(.white)
+                                .cornerRadius(10)
+                        }
+                        
+                        
+                    }
+                }
+                HStack(spacing: 230){
+                    
+                    ZStack{
+                        Image(systemName: "circle")
+                            .resizable()
+                            .frame(width: 70, height: 65)
+                            .foregroundColor(Color.primary)
+                        Button(action: {
+                            // Action when the button is tapped
+                            swapShapesCC(indices: [0,1,2,3,4,5,6,7,8])
+                            swapColorsCC(indices: [0,1,2,3,4,5,6,7,8])
+                            swapNumbersCC(indices: [0,1,2,3,4,5,6,7,8])
+                        }) {
+                            Image(systemName: "arrow.clockwise")
+                                .resizable()
+                                .aspectRatio(contentMode: .fill)
+                                .padding()
+                                .frame(width: 40, height: 40.0)
+                                .background(Color.pink)
+                                .foregroundColor(.white)
+                                .cornerRadius(10)
+                        }
+                    }
+                    
+                    ZStack{
+                        Image(systemName: "circle")
+                            .resizable()
+                            .frame(width: 70, height: 65)
+                            .foregroundColor(Color.primary)
+                        Button(action: {
+                            // Action when the button is tapped
+                            swapColorsCCW(indices: [0,1,2,3,4,5,6,7,8])
+                            swapShapesCCW(indices: [0,1,2,3,4,5,6,7,8])
+                            swapNumbersCCW(indices: [0,1,2,3,4,5,6,7,8])
+                        }) {
+                            Image(systemName: "arrow.counterclockwise")
+                                .resizable()
+                                .aspectRatio(contentMode: .fill)
+                                .padding()
+                                .frame(width: 40, height: 40)
+                                .background(Color.pink)
+                                .foregroundColor(.white)
+                                .cornerRadius(10)
+                        }
+                    }
+                }
+                Text("Click the 2 circled buttons. These 2 buttons ROTATE the whole board (shape, color,")
+                    .font(.system(size: 18.8))
+                    .multilineTextAlignment(.center)
+                    .frame(alignment: .center)
+                Text("and number) clockwise/counter-clockwise.")
+                    .font(.system(size: 18.8))
+                    .multilineTextAlignment(.center)
+                    .frame(alignment: .center)
+                Text("Note: The middle square does not change.")
+                    .font(.system(size: 18.8))
+                    .multilineTextAlignment(.center)
+                    .padding(.top)
+                    .frame(alignment: .center)
+                Spacer()
+                Spacer()
+                Button(action: {
+                    
+                }){
+                    HStack(spacing: 1.0){
+                        NavigationLink(destination: StartView()) {
+                            Text("Home")
+                        }
+                        Image(systemName: "house")
+                    }
+                }
+                .foregroundColor(Color.primary)
+                .buttonStyle(.bordered)
+                .frame(alignment: .bottom)
+                
+                .toolbar{
+                    ToolbarItem(placement: .navigationBarLeading){
+                        Button(action: {
+                            dismiss()
+                        }){
+                            HStack(spacing: 3.0){
+                                Image(systemName: "arrowshape.turn.up.backward.circle")
+                                Text("Back")
+                            }
+                        }
+                        .foregroundColor(Color.primary)
+                        .buttonStyle(.bordered)
+                    }
+                    ToolbarItem(placement: .navigationBarTrailing){
+                        Button(action: {
+                        }){
+                            HStack(spacing: 3.0){
+                                NavigationLink(destination: DirectionsView12()) {
+                                    Text("Next")
+                                }
+                                Image(systemName: "arrowshape.turn.up.right.circle")
+                            }
+                        }
+                        .buttonStyle(.bordered)
+                        .foregroundColor(Color.primary)
+                    }
+                }
+                
+                
+            }
+            .navigationBarBackButtonHidden(true)
+        } else {
+            // Fallback on earlier versions
+        } // Hides the back button in SecondView
+    }
+    private func swapColorsCC(indices: [Int]) {
+        guard indices.count == 9 else { return }
+        let temp = colors[indices[0]]
+        colors[indices[0]] = colors[indices[3]]
+        colors[indices[3]] = colors[indices[6]]
+        colors[indices[6]] = colors[indices[7]]
+        colors[indices[7]] = colors[indices[8]]
+        colors[indices[8]] = colors[indices[5]]
+        colors[indices[5]] = colors[indices[2]]
+        colors[indices[2]] = colors[indices[1]]
+        colors[indices[1]] = temp
+    }
+    private func swapNumbersCC(indices: [Int]) {
+        guard indices.count == 9 else { return }
+        let temp = numbers[indices[0]]
+        numbers[indices[0]] = numbers[indices[3]]
+        numbers[indices[3]] = numbers[indices[6]]
+        numbers[indices[6]] = numbers[indices[7]]
+        numbers[indices[7]] = numbers[indices[8]]
+        numbers[indices[8]] = numbers[indices[5]]
+        numbers[indices[5]] = numbers[indices[2]]
+        numbers[indices[2]] = numbers[indices[1]]
+        numbers[indices[1]] = temp
+    }
+    private func swapShapesCC(indices: [Int]) {
+        guard indices.count == 9 else { return }
+        let temp = shapes[indices[0]]
+        shapes[indices[0]] = shapes[indices[3]]
+        shapes[indices[3]] = shapes[indices[6]]
+        shapes[indices[6]] = shapes[indices[7]]
+        shapes[indices[7]] = shapes[indices[8]]
+        shapes[indices[8]] = shapes[indices[5]]
+        shapes[indices[5]] = shapes[indices[2]]
+        shapes[indices[2]] = shapes[indices[1]]
+        shapes[indices[1]] = temp
+    }
+    private func swapColorsCCW(indices: [Int]) {
+        guard indices.count == 9 else { return }
+        let temp = colors[indices[0]]
+        colors[indices[0]] = colors[indices[1]]
+        colors[indices[1]] = colors[indices[2]]
+        colors[indices[2]] = colors[indices[5]]
+        colors[indices[5]] = colors[indices[8]]
+        colors[indices[8]] = colors[indices[7]]
+        colors[indices[7]] = colors[indices[6]]
+        colors[indices[6]] = colors[indices[3]]
+        colors[indices[3]] = temp
+    }
+    private func swapShapesCCW(indices: [Int]) {
+        guard indices.count == 9 else { return }
+        let temp = shapes[indices[0]]
+        shapes[indices[0]] = shapes[indices[1]]
+        shapes[indices[1]] = shapes[indices[2]]
+        shapes[indices[2]] = shapes[indices[5]]
+        shapes[indices[5]] = shapes[indices[8]]
+        shapes[indices[8]] = shapes[indices[7]]
+        shapes[indices[7]] = shapes[indices[6]]
+        shapes[indices[6]] = shapes[indices[3]]
+        shapes[indices[3]] = temp
+    }
+    private func swapNumbersCCW(indices: [Int]) {
+        guard indices.count == 9 else { return }
+        let temp = numbers[indices[0]]
+        numbers[indices[0]] = numbers[indices[1]]
+        numbers[indices[1]] = numbers[indices[2]]
+        numbers[indices[2]] = numbers[indices[5]]
+        numbers[indices[5]] = numbers[indices[8]]
+        numbers[indices[8]] = numbers[indices[7]]
+        numbers[indices[7]] = numbers[indices[6]]
+        numbers[indices[6]] = numbers[indices[3]]
+        numbers[indices[3]] = temp
+    }
+    
+    
+}
+
+
+struct DirectionsView11_Previews: PreviewProvider {
+    static var previews: some View {
+        DirectionsView11()
+    }
+}
