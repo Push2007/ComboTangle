@@ -21,7 +21,7 @@ struct GameView: View {
         if #available(iOS 16.0, *) {
             NavigationStack {
                 VStack(alignment: .center, spacing: 0.0) {
-                    let originalSquareView = SqaureView(index: 1)
+                    let originalSquareView = SquareView(index: 1)
                     originalSquareView
                 }
                 .toolbar {

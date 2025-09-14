@@ -9,7 +9,7 @@
 /* Begin PBXBuildFile section */
 		780B1DFF2C0B7BB600B9E89B /* GameView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 780B1DFE2C0B7BB600B9E89B /* GameView.swift */; };
 		780B1E032C0CD95600B9E89B /* GameService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 780B1E022C0CD95600B9E89B /* GameService.swift */; };
-		780B1E052C0CD9B100B9E89B /* SqaureView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 780B1E042C0CD9B100B9E89B /* SqaureView.swift */; };
+		780B1E052C0CD9B100B9E89B /* SquareView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 780B1E042C0CD9B100B9E89B /* SquareView.swift */; };
 		780B1E072C0E145A00B9E89B /* DirectionsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 780B1E062C0E145A00B9E89B /* DirectionsView.swift */; };
 		7813B8E12C07E65F00CA6CC9 /* Pushtangle_UIApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7813B8E02C07E65F00CA6CC9 /* Pushtangle_UIApp.swift */; };
 		7813B8E32C07E65F00CA6CC9 /* StartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7813B8E22C07E65F00CA6CC9 /* StartView.swift */; };
@@ -17,6 +17,7 @@
 		7813B8E82C07E66000CA6CC9 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7813B8E72C07E66000CA6CC9 /* Preview Assets.xcassets */; };
 		7813B8EF2C08C4E100CA6CC9 /* Launch Screen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7813B8EE2C08C4E100CA6CC9 /* Launch Screen.storyboard */; };
 		7813B8F22C08D20D00CA6CC9 /* Mode_file.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7813B8F12C08D20D00CA6CC9 /* Mode_file.swift */; };
+		785193FD2E7687A4008E6FFE /* SquareViewLvl2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 785193FC2E7687A4008E6FFE /* SquareViewLvl2.swift */; };
 		7877FD912C97477100F088D1 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7877FD902C97477100F088D1 /* SettingsView.swift */; };
 		7877FD942C9749CF00F088D1 /* flat-8-bit-gaming-music-instrumental-211547.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 7877FD922C9749CE00F088D1 /* flat-8-bit-gaming-music-instrumental-211547.mp3 */; };
 		7877FD962C97590500F088D1 /* Audio.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7877FD952C97590500F088D1 /* Audio.swift */; };
@@ -38,7 +39,7 @@
 /* Begin PBXFileReference section */
 		780B1DFE2C0B7BB600B9E89B /* GameView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameView.swift; sourceTree = "<group>"; };
 		780B1E022C0CD95600B9E89B /* GameService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameService.swift; sourceTree = "<group>"; };
-		780B1E042C0CD9B100B9E89B /* SqaureView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SqaureView.swift; sourceTree = "<group>"; };
+		780B1E042C0CD9B100B9E89B /* SquareView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SquareView.swift; sourceTree = "<group>"; };
 		780B1E062C0E145A00B9E89B /* DirectionsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DirectionsView.swift; sourceTree = "<group>"; };
 		7813B8DD2C07E65F00CA6CC9 /* Pushtangle_UI.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Pushtangle_UI.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		7813B8E02C07E65F00CA6CC9 /* Pushtangle_UIApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Pushtangle_UIApp.swift; sourceTree = "<group>"; };
@@ -47,6 +48,7 @@
 		7813B8E72C07E66000CA6CC9 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		7813B8EE2C08C4E100CA6CC9 /* Launch Screen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = "Launch Screen.storyboard"; sourceTree = "<group>"; };
 		7813B8F12C08D20D00CA6CC9 /* Mode_file.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Mode_file.swift; sourceTree = "<group>"; };
+		785193FC2E7687A4008E6FFE /* SquareViewLvl2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SquareViewLvl2.swift; sourceTree = "<group>"; };
 		7877FD902C97477100F088D1 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		7877FD922C9749CE00F088D1 /* flat-8-bit-gaming-music-instrumental-211547.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "flat-8-bit-gaming-music-instrumental-211547.mp3"; sourceTree = "<group>"; };
 		7877FD952C97590500F088D1 /* Audio.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Audio.swift; sourceTree = "<group>"; };
@@ -92,7 +94,8 @@
 				78861A422C4C7ED500E47AB9 /* DirectionsView10.swift */,
 				78861A442C4C808600E47AB9 /* DirectionsView11.swift */,
 				78EE93232C4EF1C4008A054E /* DirectionsView12.swift */,
-				780B1E042C0CD9B100B9E89B /* SqaureView.swift */,
+				780B1E042C0CD9B100B9E89B /* SquareView.swift */,
+				785193FC2E7687A4008E6FFE /* SquareViewLvl2.swift */,
 				780B1DFE2C0B7BB600B9E89B /* GameView.swift */,
 				780B1E022C0CD95600B9E89B /* GameService.swift */,
 			);
@@ -244,8 +247,9 @@
 				78861A372C4ABD6400E47AB9 /* DirectionsView4.swift in Sources */,
 				7877FD912C97477100F088D1 /* SettingsView.swift in Sources */,
 				7877FD962C97590500F088D1 /* Audio.swift in Sources */,
-				780B1E052C0CD9B100B9E89B /* SqaureView.swift in Sources */,
+				780B1E052C0CD9B100B9E89B /* SquareView.swift in Sources */,
 				78861A412C4C7D1B00E47AB9 /* DirectionsView9.swift in Sources */,
+				785193FD2E7687A4008E6FFE /* SquareViewLvl2.swift in Sources */,
 				7813B8E32C07E65F00CA6CC9 /* StartView.swift in Sources */,
 				78EE932B2C59D535008A054E /* DirectionsView4.5.swift in Sources */,
 				78861A3F2C4C785000E47AB9 /* DirectionsView8.swift in Sources */,

@@ -7,7 +7,7 @@
 
 
 import SwiftUI
-struct SqaureView: View {
+struct SquareView: View {
     @EnvironmentObject var game: GameService
     @State private var squares: [Square] = []
     @State private var startDirections = false
@@ -550,9 +550,9 @@ struct SqaureView: View {
     }
    
 }
-    struct SqaureView_Previews: PreviewProvider {
+    struct SquareView_Previews: PreviewProvider {
         static var previews: some View {
-            SqaureView(index: 1)
+            SquareView(index: 1)
                 .environmentObject(GameService())
         }
     }
