@@ -50,6 +50,15 @@ enum Move{
     static var currentColor: Color = colors[4]
     static var currentNumber: Int = numbers[4]
     static var musicOn: Bool = true
+    
+    //winning Moves for goalShapes of level 2
+    static var goalShape_1: String = shapes[0]
+    static var goalColor_1: Color = colors[0]
+    static var goalNumber_1: Int = numbers[0]
+    
+    static var goalShape_2: String = shapes[9]
+    static var goalColor_2: Color = colors[9]
+    static var goalNumber_2: Int = numbers[9]
 
 }
 
