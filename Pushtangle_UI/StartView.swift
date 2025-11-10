@@ -12,6 +12,7 @@ struct StartView: View {
     @State private var gameType: GameType = .firstScreen
     @FocusState private var focus: Bool
     @State private var startGame = false
+    @State private var startGame2 = false
     @State private var startDirections = false
     @State private var startGameHard = false
     var body: some View {
@@ -23,6 +24,7 @@ struct StartView: View {
                     Picker("Select ", selection: $gameType){
                         Text("Choose a ComboTangle mode").tag(GameType.firstScreen)
                         Text("EasyTangle").tag(GameType.playingScreen)
+                        Text("HardTangle").tag(GameType.playingLevel2)
                         Text("Directions").tag(GameType.DirectionsScreen)
                         Text("Settings & Support").tag(GameType.helpScreen)
                     }
@@ -60,7 +62,7 @@ struct StartView: View {
                     }
                     .frame(width: 200.0, height: 50.0)
                     .buttonStyle(.borderedProminent)
-                    .disabled(gameType == .firstScreen || gameType == .DirectionsScreen || gameType == .playingScreenHard)
+                    .disabled(gameType == .firstScreen || gameType == .DirectionsScreen || gameType == .playingScreenHard || gameType == .playingLevel2)
                     Spacer()
                     Image("Launch_screen_image")
                         .resizable()
@@ -73,6 +75,28 @@ struct StartView: View {
                         .padding()
                 }
                 
+                if gameType == .playingLevel2 {
+                    
+                    Button("Start"){
+                        
+                        focus = true
+                        startGame2.toggle()
+                        
+                    }
+                    .frame(width: 200.0, height: 50.0)
+                    .buttonStyle(.borderedProminent)
+                    .disabled(gameType == .firstScreen || gameType == .DirectionsScreen || gameType == .playingScreenHard || gameType == .playingScreen)
+                    Spacer()
+                    Image("Launch_screen_image")
+                        .resizable()
+                        .scaledToFit()
+                        .frame(width: 250)
+                    Text("ComboTangle")
+                        .font(.largeTitle) // Optionally, you can adjust the font size
+                        .fontWeight(.bold)
+                        .foregroundColor(.primary) // Optionally, you can change the text color
+                        .padding()
+                }
                 
                 if gameType == .DirectionsScreen {
                     
@@ -85,7 +109,7 @@ struct StartView: View {
                     .padding()
                     .frame(width: 200.0, height: 50.0)
                     .buttonStyle(.borderedProminent)
-                    .disabled(gameType == .firstScreen || gameType == .playingScreen || gameType == .playingScreenHard)
+                    .disabled(gameType == .firstScreen || gameType == .playingScreen || gameType == .playingScreenHard || gameType == .playingLevel2)
                     Spacer()
                     Image("Launch_screen_image")
                         .resizable()
@@ -113,7 +137,7 @@ struct StartView: View {
                     .foregroundColor(Color.primary)
                     .buttonStyle(.bordered)
                     Spacer()
-                    Text("Do you have any questions or issues? \nPlease feel free to contact our team at PushTangle \n Email - Pushtangle@gmail.com")
+                    Text("Do you have any questions or issues? \nPlease feel free to contact \n our team at PushTangle \n Email - Pushtangle@gmail.com")
                         .font(.system(size: 20))
                         .multilineTextAlignment(.center)
                     Spacer()
@@ -133,6 +157,12 @@ struct StartView: View {
             .navigationTitle("ComboTangle")
             .fullScreenCover(isPresented: $startGame){
                 GameView()
+                
+                
+            }
+            
+            .fullScreenCover(isPresented: $startGame2){
+                GameViewLvl2()//for now
                 
                 
             }

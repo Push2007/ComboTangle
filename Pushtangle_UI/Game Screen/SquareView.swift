@@ -33,7 +33,7 @@ struct SquareView: View {
         
         HStack(spacing: 20.0){
             HStack{
-                Text(" Your goal is")
+                Text(" Goal:")
                     .font(.custom("Times New Roman", size: 26))
                 ZStack{
                         // Code for other devices

@@ -18,6 +18,7 @@
 		7813B8EF2C08C4E100CA6CC9 /* Launch Screen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7813B8EE2C08C4E100CA6CC9 /* Launch Screen.storyboard */; };
 		7813B8F22C08D20D00CA6CC9 /* Mode_file.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7813B8F12C08D20D00CA6CC9 /* Mode_file.swift */; };
 		785193FD2E7687A4008E6FFE /* SquareViewLvl2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 785193FC2E7687A4008E6FFE /* SquareViewLvl2.swift */; };
+		785193FF2E777454008E6FFE /* GameViewLvl2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 785193FE2E777454008E6FFE /* GameViewLvl2.swift */; };
 		7877FD912C97477100F088D1 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7877FD902C97477100F088D1 /* SettingsView.swift */; };
 		7877FD942C9749CF00F088D1 /* flat-8-bit-gaming-music-instrumental-211547.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 7877FD922C9749CE00F088D1 /* flat-8-bit-gaming-music-instrumental-211547.mp3 */; };
 		7877FD962C97590500F088D1 /* Audio.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7877FD952C97590500F088D1 /* Audio.swift */; };
@@ -49,6 +50,7 @@
 		7813B8EE2C08C4E100CA6CC9 /* Launch Screen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = "Launch Screen.storyboard"; sourceTree = "<group>"; };
 		7813B8F12C08D20D00CA6CC9 /* Mode_file.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Mode_file.swift; sourceTree = "<group>"; };
 		785193FC2E7687A4008E6FFE /* SquareViewLvl2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SquareViewLvl2.swift; sourceTree = "<group>"; };
+		785193FE2E777454008E6FFE /* GameViewLvl2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameViewLvl2.swift; sourceTree = "<group>"; };
 		7877FD902C97477100F088D1 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		7877FD922C9749CE00F088D1 /* flat-8-bit-gaming-music-instrumental-211547.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "flat-8-bit-gaming-music-instrumental-211547.mp3"; sourceTree = "<group>"; };
 		7877FD952C97590500F088D1 /* Audio.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Audio.swift; sourceTree = "<group>"; };
@@ -97,6 +99,7 @@
 				780B1E042C0CD9B100B9E89B /* SquareView.swift */,
 				785193FC2E7687A4008E6FFE /* SquareViewLvl2.swift */,
 				780B1DFE2C0B7BB600B9E89B /* GameView.swift */,
+				785193FE2E777454008E6FFE /* GameViewLvl2.swift */,
 				780B1E022C0CD95600B9E89B /* GameService.swift */,
 			);
 			path = "Game Screen";
@@ -193,7 +196,7 @@
 					New,
 				);
 				LastSwiftUpdateCheck = 1430;
-				LastUpgradeCheck = 1540;
+				LastUpgradeCheck = 1640;
 				TargetAttributes = {
 					7813B8DC2C07E65F00CA6CC9 = {
 						CreatedOnToolsVersion = 14.3.1;
@@ -256,6 +259,7 @@
 				78861A432C4C7ED500E47AB9 /* DirectionsView10.swift in Sources */,
 				78861A3B2C4B096A00E47AB9 /* DirectionsView6.swift in Sources */,
 				780B1E032C0CD95600B9E89B /* GameService.swift in Sources */,
+				785193FF2E777454008E6FFE /* GameViewLvl2.swift in Sources */,
 				780B1DFF2C0B7BB600B9E89B /* GameView.swift in Sources */,
 				78861A352C49F1FB00E47AB9 /* DirectionsView3.swift in Sources */,
 				78EE93242C4EF1C4008A054E /* DirectionsView12.swift in Sources */,
@@ -302,6 +306,7 @@
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEVELOPMENT_TEAM = HWXGR4CFK7;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
 				ENABLE_USER_SCRIPT_SANDBOXING = YES;
@@ -363,6 +368,7 @@
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEVELOPMENT_TEAM = HWXGR4CFK7;
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_USER_SCRIPT_SANDBOXING = YES;
@@ -394,7 +400,6 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"Pushtangle_UI/Preview Content\"";
-				DEVELOPMENT_TEAM = HWXGR4CFK7;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_CFBundleDisplayName = ComboTangle;
@@ -433,7 +438,6 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"Pushtangle_UI/Preview Content\"";
-				DEVELOPMENT_TEAM = HWXGR4CFK7;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_CFBundleDisplayName = ComboTangle;

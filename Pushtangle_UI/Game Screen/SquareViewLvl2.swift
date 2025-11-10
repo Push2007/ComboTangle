@@ -25,40 +25,66 @@ struct SquareViewLvl2: View {
     @State private var movesTaken: Int = 0
 
     func randomise(){
-        Move.goalShape = shapes[Int.random(in: 0...8)]
-        Move.goalColor = colors[Int.random(in: 0...8)]
-        Move.goalNumber = numbers[Int.random(in: 0...8)]
+        let shapeOne: Int = Int.random(in: 0...8)
+        let numberOne: Int = Int.random(in: 0...8)
+        let colorOne: Int = Int.random(in: 0...8)
+        Move.goalShape_1 = shapes[shapeOne]
+        Move.goalColor_1 = colors[colorOne]
+        Move.goalNumber_1 = numbers[numberOne]
+        
+        let shapeTwo: Int = (shapeOne + Int.random(in: 1...8)) % 9
+        let numberTwo: Int = (numberOne + Int.random(in: 1...8)) % 9
+        let colorTwo: Int = (colorOne + Int.random(in: 1...8)) % 9
+        Move.goalShape_2 = shapes[shapeTwo]
+        Move.goalColor_2 = colors[colorTwo]
+        Move.goalNumber_2 = numbers[numberTwo]
     }
     var body: some View {
-        Spacer()
+        Spacer(minLength: 25.0)
         
         HStack(spacing: 20.0){
             HStack{
-                Text(" Your goal is")
+                Text(" Goals:")
                     .font(.custom("Times New Roman", size: 26))
-                ZStack{
+                
+                    ZStack{
                         // Code for other devices
-                    Rectangle()
-                        .fill(Move.goalColor)
-                        .frame(width: 75, height: 75)
-                    Image(systemName: Move.goalShape)
-                        .resizable()
-                        .aspectRatio(contentMode: .fit)
-                        .frame(width: 50)
-                        .foregroundColor(Color.black)
-                    Text(String(Move.goalNumber))
-                        .foregroundColor(Color.white)
-                        .font(.system(size: 19.5))
+                        Rectangle()
+                            .fill(Move.goalColor_1)
+                            .frame(width: 65, height: 65)
+                        Image(systemName: Move.goalShape_1)
+                            .resizable()
+                            .aspectRatio(contentMode: .fit)
+                            .frame(width: 43.333333)
+                            .foregroundColor(Color.black)
+                        Text(String(Move.goalNumber_1))
+                            .foregroundColor(Color.white)
+                            .font(.system(size: 17.3333333))
+                        
+                        
+                    }
+                    ZStack{
+                        // Code for other devices
+                        Rectangle()
+                            .fill(Move.goalColor_2)
+                            .frame(width: 65, height: 65)
+                        Image(systemName: Move.goalShape_2)
+                            .resizable()
+                            .aspectRatio(contentMode: .fit)
+                            .frame(width: 43.333333)
+                            .foregroundColor(Color.black)
+                        Text(String(Move.goalNumber_2))
+                            .foregroundColor(Color.white)
+                            .font(.system(size: 17.3333333))
+                        
+                        
+                    }
                     
-                    
-                }
             }
             .frame(maxWidth: .infinity, alignment: .center)
             Text("Moves: \(movesTaken)")
                 .font(.custom("Times New Roman", size: 26))
-                .frame(maxWidth: .infinity, alignment: .center)
-            
-            
+            Spacer(minLength: 10.5)
         }
         Spacer()
         
@@ -72,6 +98,10 @@ struct SquareViewLvl2: View {
                         // Action when the button is tapped
                         swapColorsX(indices: [0, 3, 6])
                         movesTaken += 1
+                        updateTopLeftSquare()
+                        if checkWinner() == true{
+                            isTitleVisible = true
+                        }
                     }) {
                         Image(systemName: "arrow.up")
                             .resizable()
@@ -88,10 +118,7 @@ struct SquareViewLvl2: View {
                         // Action when the button is tapped
                         swapShapesX(indices: [1,4,7])
                         movesTaken += 1
-                        updateMiddleSquare()
-                        if checkWinner() == true{
-                            isTitleVisible = true
-                        }
+                        
                     }) {
                         Image(systemName: "arrow.up")
                             .resizable()
@@ -107,6 +134,10 @@ struct SquareViewLvl2: View {
                         // Action when the button is tapped
                         swapNumbersX(indices: [2,5,8])
                         movesTaken += 1
+                        updateBottomRightSquare()
+                        if checkWinner() == true{
+                            isTitleVisible = true
+                        }
                     }) {
                             Image(systemName: "arrow.up")
                                 .resizable()
@@ -128,18 +159,24 @@ struct SquareViewLvl2: View {
                             if row == 0{
                                 swapShapesX(indices: [0,1,2])
                                 swapNumbersX(indices: [0,1,2])
+                                updateTopLeftSquare()
+                                if checkWinner() == true{
+                                    isTitleVisible = true
+                                }
+
                             }
                             if row == 1{
                                 swapColorsX(indices: [3,4,5])
                                 swapNumbersX(indices: [3,4,5])
-                                updateMiddleSquare()
-                                if checkWinner() == true{
-                                    isTitleVisible = true
-                                }
+                                
                             }
                             if row == 2{
                                 swapColorsX(indices: [6,7,8])
                                 swapShapesX(indices: [6,7,8])
+                                updateBottomRightSquare()
+                                if checkWinner() == true{
+                                    isTitleVisible = true
+                                }
                             }
                         }) {
                             Image(systemName: "arrow.left")
@@ -191,19 +228,24 @@ struct SquareViewLvl2: View {
                                 if row == 0{
                                     swapShapes(indices: [0,1,2])
                                     swapNumbers(indices: [0,1,2])
+                                    updateTopLeftSquare()
+                                    if checkWinner() == true{
+                                        isTitleVisible = true
+                                    }
                                 }
                                 if row == 1{
                                     swapColors(indices: [3,4,5])
                                     swapNumbers(indices: [3,4,5])
-                                    updateMiddleSquare()
-                                    if checkWinner() == true{
-                                        isTitleVisible = true
-                                    }
+                                    
                                     
                                 }
                                 if row == 2{
                                     swapColors(indices: [6,7,8])
                                     swapShapes(indices: [6,7,8])
+                                    updateBottomRightSquare()
+                                    if checkWinner() == true{
+                                        isTitleVisible = true
+                                    }
                                 }
                             }) {
                                 Image(systemName: "arrow.right")
@@ -237,6 +279,10 @@ struct SquareViewLvl2: View {
                         // Action when the button is tapped
                         self.swapColors(indices: [0, 3, 6])
                         movesTaken += 1
+                        updateTopLeftSquare()
+                        if checkWinner() == true{
+                            isTitleVisible = true
+                        }
                     }) {
                         Image(systemName: "arrow.down")
                             .resizable()
@@ -254,10 +300,7 @@ struct SquareViewLvl2: View {
                         // Action when the button is tapped
                         self.swapShapes(indices: [1, 4, 7])
                         movesTaken += 1
-                        updateMiddleSquare()
-                        if checkWinner() == true{
-                            isTitleVisible = true
-                        }
+                        
                     }) {
                         Image(systemName: "arrow.down")
                             .resizable()
@@ -273,6 +316,10 @@ struct SquareViewLvl2: View {
                         // Action when the button is tapped
                         self.swapNumbers(indices: [2, 5, 8])
                         movesTaken += 1
+                        updateBottomRightSquare()
+                        if checkWinner() == true{
+                            isTitleVisible = true
+                        }
                     }) {
                         Image(systemName: "arrow.down")
                             .resizable()
@@ -303,6 +350,11 @@ struct SquareViewLvl2: View {
                             swapColorsCC(indices: [0,1,2,3,4,5,6,7,8])
                             swapNumbersCC(indices: [0,1,2,3,4,5,6,7,8])
                             movesTaken += 1
+                            updateTopLeftSquare()
+                            updateBottomRightSquare()
+                            if checkWinner() == true{
+                                isTitleVisible = true
+                            }
                         }) {
                             Image(systemName: "arrow.clockwise")
                                 .resizable()
@@ -333,6 +385,11 @@ struct SquareViewLvl2: View {
                             swapShapesCCW(indices: [0,1,2,3,4,5,6,7,8])
                             swapNumbersCCW(indices: [0,1,2,3,4,5,6,7,8])
                             movesTaken += 1
+                            updateTopLeftSquare()
+                            updateBottomRightSquare()
+                            if checkWinner() == true{
+                                isTitleVisible = true
+                            }
                         }) {
                             Image(systemName: "arrow.counterclockwise")
                                 .resizable()
@@ -396,19 +453,31 @@ struct SquareViewLvl2: View {
         }
     }
     func initializeSquares() {
-        squares = zip3(shapes, colors, numbers).map { Square(sha: $0, col: $1, num: $2) }//arry of "squares" is made
-        Move.currentColor = squares[4].col
-        Move.currentShape = squares[4].sha
-        Move.currentNumber = squares[4].num
+        squares = zip3(shapes, colors, numbers).map { Square(sha: $0, col: $1, num: $2) }//arry of "squares" is created
+        Move.currentColor_1 = squares[0].col
+        Move.currentShape_1 = squares[0].sha
+        Move.currentNumber_1 = squares[0].num
+        
+        Move.currentColor_2 = squares[8].col
+        Move.currentShape_2 = squares[8].sha
+        Move.currentNumber_2 = squares[8].num
         // Store the initial state
         initialColors = colors
         initialShapes = shapes
         initialNumbers = numbers
     }
-    func updateMiddleSquare(){
-        Move.currentColor = colors[4]
-        Move.currentShape = shapes[4]
-        Move.currentNumber = numbers[4]
+    func updateTopLeftSquare(){
+        Move.currentColor_1 = colors[0]
+        Move.currentShape_1 = shapes[0]
+        Move.currentNumber_1 = numbers[0]
+        
+    }
+    
+    func updateBottomRightSquare(){
+        
+        Move.currentColor_2 = colors[8]
+        Move.currentShape_2 = shapes[8]
+        Move.currentNumber_2 = numbers[8]
     }
     private func resetGrid() {
             colors = initialColors
@@ -423,7 +492,7 @@ struct SquareViewLvl2: View {
             initializeSquares()
         }
     private func checkWinner() -> Bool{
-        if (Move.currentColor == Move.goalColor && Move.currentShape == Move.goalShape && Move.currentNumber == Move.goalNumber){
+        if (Move.currentColor_1 == Move.goalColor_1 && Move.currentShape_1 == Move.goalShape_1 && Move.currentNumber_1 == Move.goalNumber_1 && Move.currentColor_2 == Move.goalColor_2 && Move.currentShape_2 == Move.goalShape_2 && Move.currentNumber_2 == Move.goalNumber_2){
             return true
         }
         return false
