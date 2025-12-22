@@ -171,7 +171,7 @@ struct DirectionsView2: View {
                     }
                     Text("This is an example of a board you might")
                         .font(.system(size: 20))
-                    Text("have in a game of EasyTangle.")
+                    Text("have in a game of ComboTangle.")
                         .font(.system(size: 20))
                     Text("There are over 47 quadrillion possible")
                         .font(.system(size: 20))

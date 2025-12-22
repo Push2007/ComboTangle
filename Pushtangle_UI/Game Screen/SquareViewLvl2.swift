@@ -18,6 +18,10 @@ struct SquareViewLvl2: View {
     @State private var numbers: [Int] = [1,2,3,4,5,6,7,8,9].shuffled()
     @State private var shapes: [String] = ["cross.fill", "heart.fill", "star.fill", "suit.spade.fill", "pentagon.fill", "circle.fill", "triangle.fill", "square.fill", "diamond.fill"].shuffled()
     @State private var colors: [Color] = [.red, .indigo, .green, .purple, .brown, .orange, .cyan, .yellow, .gray].shuffled()
+    @State private var outlines: [Color] = [.black, .clear, .clear, .clear, .clear, .clear, .clear, .clear, .blue]
+    @State private var specs1: [Int] = [88, 92, 92, 92, 92, 92, 92, 92, 88]
+    @State private var specs2: [Int] = [96, 100, 100, 100, 100, 100, 100, 100, 96]
+    @State private var specs3: [Int] = [104, 100, 100, 100, 100, 100, 100, 100, 104]
     @State private var initialColors: [Color] = []//reset grid
     @State private var initialShapes: [String] = []//reset grid
     @State private var initialNumbers: [Int] = []//reset grid
@@ -51,7 +55,11 @@ struct SquareViewLvl2: View {
                         // Code for other devices
                         Rectangle()
                             .fill(Move.goalColor_1)
-                            .frame(width: 65, height: 65)
+                            .frame(width: 60, height: 60)
+                            .overlay(
+                                Rectangle()
+                                    .stroke(Color.primary, lineWidth: 4)
+                                )
                         Image(systemName: Move.goalShape_1)
                             .resizable()
                             .aspectRatio(contentMode: .fit)
@@ -67,7 +75,11 @@ struct SquareViewLvl2: View {
                         // Code for other devices
                         Rectangle()
                             .fill(Move.goalColor_2)
-                            .frame(width: 65, height: 65)
+                            .frame(width: 60, height: 60)
+                            .overlay(
+                                Rectangle()
+                                    .stroke(Color.blue, lineWidth: 4)
+                                )
                         Image(systemName: Move.goalShape_2)
                             .resizable()
                             .aspectRatio(contentMode: .fit)
@@ -196,16 +208,29 @@ struct SquareViewLvl2: View {
                                     Rectangle()
                                         .fill(self.colors[index])
                                         .frame(width: 92, height: 92)
+                                      .overlay(
+                                          Rectangle()
+                                            .strokeBorder(self.outlines[index], lineWidth: 7.5)
+                                              
+                                          )
                                 } else if UIScreen.main.bounds.size == CGSize(width: 375, height: 667) {
                                     // Code for iPhone SE (2nd and 3rd generation)
                                     Rectangle()
                                         .fill(self.colors[index])
                                         .frame(width: 100, height: 100)
+                                      .overlay(
+                                          Rectangle()
+                                            .strokeBorder(self.outlines[index], lineWidth: 7.8)
+                                          )
                                 } else {
                                     // Code for other devices
                                     Rectangle()
                                         .fill(self.colors[index])
                                         .frame(width: 108, height: 108)
+                                      .overlay(
+                                          Rectangle()
+                                              .strokeBorder(self.outlines[index], lineWidth: 8)
+                                          )
                                 }
                                 
                                 Image(systemName: self.shapes[index])

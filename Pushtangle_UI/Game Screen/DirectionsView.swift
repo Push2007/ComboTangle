@@ -16,7 +16,7 @@ struct DirectionsView: View {
                         Text("Directions")
                             .font(.custom("Times New Roman", size: 35))
                             .bold()
-                        Text("A board in EasyTangle consists")
+                        Text("A board in ComboTangle consists")
                             .font(.system(size: 20))
                         Text("of squares in a 3 x 3 layout")
                             .font(.system(size: 20))

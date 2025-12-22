@@ -24,7 +24,7 @@ struct StartView: View {
                     Picker("Select ", selection: $gameType){
                         Text("Choose a ComboTangle mode").tag(GameType.firstScreen)
                         Text("EasyTangle").tag(GameType.playingScreen)
-                        Text("HardTangle").tag(GameType.playingLevel2)
+                        Text("TwinTangle").tag(GameType.playingLevel2)
                         Text("Directions").tag(GameType.DirectionsScreen)
                         Text("Settings & Support").tag(GameType.helpScreen)
                     }
