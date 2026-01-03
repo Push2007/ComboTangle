@@ -18,7 +18,7 @@ struct SquareViewLvl2: View {
     @State private var numbers: [Int] = [1,2,3,4,5,6,7,8,9].shuffled()
     @State private var shapes: [String] = ["cross.fill", "heart.fill", "star.fill", "suit.spade.fill", "pentagon.fill", "circle.fill", "triangle.fill", "square.fill", "diamond.fill"].shuffled()
     @State private var colors: [Color] = [.red, .indigo, .green, .purple, .brown, .orange, .cyan, .yellow, .gray].shuffled()
-    @State private var outlines: [Color] = [.black, .clear, .clear, .clear, .clear, .clear, .clear, .clear, .blue]
+    @State private var outlines: [Color] = [.primary, .clear, .clear, .clear, .clear, .clear, .clear, .clear, .blue]
     @State private var specs1: [Int] = [88, 92, 92, 92, 92, 92, 92, 92, 88]
     @State private var specs2: [Int] = [96, 100, 100, 100, 100, 100, 100, 100, 96]
     @State private var specs3: [Int] = [104, 100, 100, 100, 100, 100, 100, 100, 104]
