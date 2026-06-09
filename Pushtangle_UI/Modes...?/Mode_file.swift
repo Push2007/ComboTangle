@@ -7,14 +7,14 @@
 
 import SwiftUI
 enum GameType{
-    case firstScreen, playingScreen, DirectionsScreen, playingScreenHard, playingLevel2, helpScreen
+    case firstScreen, playingScreen, DirectionsScreen, playingScreenHard, playingLevel2, timedTangle, mysteryTangle, helpScreen
     
     var description: String{
         
         switch self {
         
         case .playingScreen:
-            return "Press 'Start' to play."
+            return "Match the goal."
         case .DirectionsScreen:
             return "Press 'Directions' to learn how to play."
         case .firstScreen:
@@ -22,7 +22,11 @@ enum GameType{
         case .playingScreenHard:
             return "Press 'Start' to play."
         case .playingLevel2:
-            return "Press 'Start' to play."
+            return "Match both goals."
+        case .timedTangle:
+            return "Match both goals in under 60s."
+        case .mysteryTangle:
+            return "Match both goals in the mystery positions."
         case .helpScreen:
             return ""
              
@@ -48,6 +52,7 @@ enum Move{
     static var goalShape: String = shapes[0]
     static var goalColor: Color = colors[0]
     static var goalNumber: Int = numbers[0]
+    
     static var currentShape: String = shapes[4]
     static var currentColor: Color = colors[4]
     static var currentNumber: Int = numbers[4]
@@ -71,6 +76,4 @@ enum Move{
     static var currentNumber_2: Int = numbers[8]
 
 }
-
-
 

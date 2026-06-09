@@ -16,12 +16,15 @@ struct GameViewLvl2: View {
     @State private var startDirections = false
     @StateObject var audioPlayer = AudioPlayer() // Initialize AudioPlayer
     public var musicOn = true
+    var isTimed: Bool = false
+    var timeLimit: Int = 60
+    var usesRandomGoalPositions: Bool = false
     
     var body: some View {
         if #available(iOS 16.0, *) {
             NavigationStack {
                 VStack(alignment: .center, spacing: 0.0) {
-                    let originalSquareView = SquareViewLvl2(index: 1)
+                    let originalSquareView = SquareViewLvl2(index: 1, isTimed: isTimed, timeLimit: timeLimit, usesRandomGoalPositions: usesRandomGoalPositions)
                     originalSquareView
                 }
                 .toolbar {

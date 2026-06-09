@@ -8,25 +8,54 @@
 
 
 import SwiftUI
+import Combine
 struct SquareViewLvl2: View {
     @EnvironmentObject var game: GameService
     @State private var squares: [Square] = []
     @State private var startDirections = false
     let index: Int
+    let isTimed: Bool
+    let timeLimit: Int
+    let usesRandomGoalPositions: Bool
     let rows = 3
     let columns = 3
     @State private var numbers: [Int] = [1,2,3,4,5,6,7,8,9].shuffled()
     @State private var shapes: [String] = ["cross.fill", "heart.fill", "star.fill", "suit.spade.fill", "pentagon.fill", "circle.fill", "triangle.fill", "square.fill", "diamond.fill"].shuffled()
     @State private var colors: [Color] = [.red, .indigo, .green, .purple, .brown, .orange, .cyan, .yellow, .gray].shuffled()
-    @State private var outlines: [Color] = [.primary, .clear, .clear, .clear, .clear, .clear, .clear, .clear, .blue]
     @State private var specs1: [Int] = [88, 92, 92, 92, 92, 92, 92, 92, 88]
     @State private var specs2: [Int] = [96, 100, 100, 100, 100, 100, 100, 100, 96]
     @State private var specs3: [Int] = [104, 100, 100, 100, 100, 100, 100, 100, 104]
-    @State private var initialColors: [Color] = []//reset grid
-    @State private var initialShapes: [String] = []//reset grid
-    @State private var initialNumbers: [Int] = []//reset grid
+    @State private var goalIndexOne: Int = 0
+    @State private var goalIndexTwo: Int = 8
+    @State private var initialColors: [Color] = []//for reset grid
+    @State private var initialShapes: [String] = []//for reset grid
+    @State private var initialNumbers: [Int] = []//for reset grid
     @State private var isTitleVisible: Bool = false
+    @State private var timeIsUp: Bool = false
+    @State private var secondsRemaining: Int
     @State private var movesTaken: Int = 0
+
+    init(index: Int, isTimed: Bool = false, timeLimit: Int = 60, usesRandomGoalPositions: Bool = false) {
+        self.index = index
+        self.isTimed = isTimed
+        self.timeLimit = timeLimit
+        self.usesRandomGoalPositions = usesRandomGoalPositions
+        _secondsRemaining = State(initialValue: timeLimit)
+    }
+
+    private var isGameStopped: Bool {
+        isTitleVisible || timeIsUp
+    }
+
+    private func outlineColor(for index: Int) -> Color {
+        if index == goalIndexOne {
+            return Color.primary
+        }
+        if index == goalIndexTwo {
+            return Color.blue
+        }
+        return Color.clear
+    }
 
     func randomise(){
         let shapeOne: Int = Int.random(in: 0...8)
@@ -94,8 +123,16 @@ struct SquareViewLvl2: View {
                     
             }
             .frame(maxWidth: .infinity, alignment: .center)
-            Text("Moves: \(movesTaken)")
-                .font(.custom("Times New Roman", size: 26))
+            VStack(spacing: 4.0){
+                Text("Moves: \(movesTaken)")
+                    .font(.custom("Times New Roman", size: 26))
+                if isTimed {
+                    Text("Time: \(secondsRemaining)s")
+                        .font(.custom("Times New Roman", size: 24))
+                        .foregroundColor(secondsRemaining <= 10 ? Color.red : Color.primary)
+                }
+            }
+            .frame(maxWidth: .infinity, alignment: .center)
             Spacer(minLength: 10.5)
         }
         Spacer()
@@ -109,11 +146,7 @@ struct SquareViewLvl2: View {
                     Button(action: {
                         // Action when the button is tapped
                         swapColorsX(indices: [0, 3, 6])
-                        movesTaken += 1
-                        updateTopLeftSquare()
-                        if checkWinner() == true{
-                            isTitleVisible = true
-                        }
+                        completeMove()
                     }) {
                         Image(systemName: "arrow.up")
                             .resizable()
@@ -124,12 +157,12 @@ struct SquareViewLvl2: View {
                             .foregroundColor(.white)
                             .cornerRadius(10)
                     }
-                    .disabled(isTitleVisible)
+                    .disabled(isGameStopped)
                     
                     Button(action: {
                         // Action when the button is tapped
                         swapShapesX(indices: [1,4,7])
-                        movesTaken += 1
+                        completeMove()
                         
                     }) {
                         Image(systemName: "arrow.up")
@@ -141,15 +174,11 @@ struct SquareViewLvl2: View {
                             .foregroundColor(.white)
                             .cornerRadius(10)
                     }
-                    .disabled(isTitleVisible)
+                    .disabled(isGameStopped)
                     Button(action: {
                         // Action when the button is tapped
                         swapNumbersX(indices: [2,5,8])
-                        movesTaken += 1
-                        updateBottomRightSquare()
-                        if checkWinner() == true{
-                            isTitleVisible = true
-                        }
+                        completeMove()
                     }) {
                             Image(systemName: "arrow.up")
                                 .resizable()
@@ -162,19 +191,14 @@ struct SquareViewLvl2: View {
                         }
                     
                 }
-                .disabled(isTitleVisible)
+                .disabled(isGameStopped)
                 ForEach(0..<rows, id: \.self) { row in
                     HStack(spacing: 2.0) {
                         Button(action: {
-                            movesTaken += 1
                             // Action when the button is tapped
                             if row == 0{
                                 swapShapesX(indices: [0,1,2])
                                 swapNumbersX(indices: [0,1,2])
-                                updateTopLeftSquare()
-                                if checkWinner() == true{
-                                    isTitleVisible = true
-                                }
 
                             }
                             if row == 1{
@@ -185,11 +209,8 @@ struct SquareViewLvl2: View {
                             if row == 2{
                                 swapColorsX(indices: [6,7,8])
                                 swapShapesX(indices: [6,7,8])
-                                updateBottomRightSquare()
-                                if checkWinner() == true{
-                                    isTitleVisible = true
-                                }
                             }
+                            completeMove()
                         }) {
                             Image(systemName: "arrow.left")
                                 .resizable()
@@ -200,7 +221,7 @@ struct SquareViewLvl2: View {
                                 .foregroundColor(.white)
                                 .cornerRadius(10)
                         }
-                        .disabled(isTitleVisible)
+                        .disabled(isGameStopped)
                         ForEach(0..<self.columns, id: \.self) { column in
                             let index = row * self.columns + column
                             ZStack{
@@ -210,7 +231,7 @@ struct SquareViewLvl2: View {
                                         .frame(width: 92, height: 92)
                                       .overlay(
                                           Rectangle()
-                                            .strokeBorder(self.outlines[index], lineWidth: 7.5)
+                                            .strokeBorder(outlineColor(for: index), lineWidth: 7.5)
                                               
                                           )
                                 } else if UIScreen.main.bounds.size == CGSize(width: 375, height: 667) {
@@ -220,7 +241,7 @@ struct SquareViewLvl2: View {
                                         .frame(width: 100, height: 100)
                                       .overlay(
                                           Rectangle()
-                                            .strokeBorder(self.outlines[index], lineWidth: 7.8)
+                                            .strokeBorder(outlineColor(for: index), lineWidth: 7.8)
                                           )
                                 } else {
                                     // Code for other devices
@@ -229,7 +250,7 @@ struct SquareViewLvl2: View {
                                         .frame(width: 108, height: 108)
                                       .overlay(
                                           Rectangle()
-                                              .strokeBorder(self.outlines[index], lineWidth: 8)
+                                              .strokeBorder(outlineColor(for: index), lineWidth: 8)
                                           )
                                 }
                                 
@@ -249,14 +270,9 @@ struct SquareViewLvl2: View {
                         }
                         VStack{
                             Button(action: {
-                                movesTaken += 1
                                 if row == 0{
                                     swapShapes(indices: [0,1,2])
                                     swapNumbers(indices: [0,1,2])
-                                    updateTopLeftSquare()
-                                    if checkWinner() == true{
-                                        isTitleVisible = true
-                                    }
                                 }
                                 if row == 1{
                                     swapColors(indices: [3,4,5])
@@ -267,11 +283,8 @@ struct SquareViewLvl2: View {
                                 if row == 2{
                                     swapColors(indices: [6,7,8])
                                     swapShapes(indices: [6,7,8])
-                                    updateBottomRightSquare()
-                                    if checkWinner() == true{
-                                        isTitleVisible = true
-                                    }
                                 }
+                                completeMove()
                             }) {
                                 Image(systemName: "arrow.right")
                                     .resizable()
@@ -282,7 +295,7 @@ struct SquareViewLvl2: View {
                                     .foregroundColor(.white)
                                     .cornerRadius(10)
                             }
-                            .disabled(isTitleVisible)
+                            .disabled(isGameStopped)
                             if row == 0{
                                 Text("SN")
                             }
@@ -303,11 +316,7 @@ struct SquareViewLvl2: View {
                     Button(action: {
                         // Action when the button is tapped
                         self.swapColors(indices: [0, 3, 6])
-                        movesTaken += 1
-                        updateTopLeftSquare()
-                        if checkWinner() == true{
-                            isTitleVisible = true
-                        }
+                        completeMove()
                     }) {
                         Image(systemName: "arrow.down")
                             .resizable()
@@ -318,13 +327,13 @@ struct SquareViewLvl2: View {
                             .foregroundColor(.white)
                             .cornerRadius(10)
                     }
-                    .disabled(isTitleVisible)
+                    .disabled(isGameStopped)
                     
                     
                     Button(action: {
                         // Action when the button is tapped
                         self.swapShapes(indices: [1, 4, 7])
-                        movesTaken += 1
+                        completeMove()
                         
                     }) {
                         Image(systemName: "arrow.down")
@@ -336,15 +345,11 @@ struct SquareViewLvl2: View {
                             .foregroundColor(.white)
                             .cornerRadius(10)
                     }
-                    .disabled(isTitleVisible)
+                    .disabled(isGameStopped)
                     Button(action: {
                         // Action when the button is tapped
                         self.swapNumbers(indices: [2, 5, 8])
-                        movesTaken += 1
-                        updateBottomRightSquare()
-                        if checkWinner() == true{
-                            isTitleVisible = true
-                        }
+                        completeMove()
                     }) {
                         Image(systemName: "arrow.down")
                             .resizable()
@@ -356,7 +361,7 @@ struct SquareViewLvl2: View {
                             .cornerRadius(10)
                         
                     }
-                    .disabled(isTitleVisible)
+                    .disabled(isGameStopped)
                     
                 }
                 HStack(spacing: 100){
@@ -374,12 +379,7 @@ struct SquareViewLvl2: View {
                             swapShapesCC(indices: [0,1,2,3,4,5,6,7,8])
                             swapColorsCC(indices: [0,1,2,3,4,5,6,7,8])
                             swapNumbersCC(indices: [0,1,2,3,4,5,6,7,8])
-                            movesTaken += 1
-                            updateTopLeftSquare()
-                            updateBottomRightSquare()
-                            if checkWinner() == true{
-                                isTitleVisible = true
-                            }
+                            completeMove()
                         }) {
                             Image(systemName: "arrow.clockwise")
                                 .resizable()
@@ -390,14 +390,14 @@ struct SquareViewLvl2: View {
                                 .foregroundColor(.white)
                                 .cornerRadius(10)
                         }
-                        .disabled(isTitleVisible)
+                        .disabled(isGameStopped)
                         Text("CSN")
                     }
                     Button("New Game"){
                         newGame()
-                        randomise()
                         movesTaken = 0
                         isTitleVisible = false
+                        resetTimer()
                     }
                     .frame(width: 115.0)
                     .buttonStyle(.bordered)
@@ -409,12 +409,7 @@ struct SquareViewLvl2: View {
                             swapColorsCCW(indices: [0,1,2,3,4,5,6,7,8])
                             swapShapesCCW(indices: [0,1,2,3,4,5,6,7,8])
                             swapNumbersCCW(indices: [0,1,2,3,4,5,6,7,8])
-                            movesTaken += 1
-                            updateTopLeftSquare()
-                            updateBottomRightSquare()
-                            if checkWinner() == true{
-                                isTitleVisible = true
-                            }
+                            completeMove()
                         }) {
                             Image(systemName: "arrow.counterclockwise")
                                 .resizable()
@@ -425,7 +420,7 @@ struct SquareViewLvl2: View {
                                 .foregroundColor(.white)
                                 .cornerRadius(10)
                         }
-                        .disabled(isTitleVisible)
+                        .disabled(isGameStopped)
                         Text("CSN")
                     }
                     
@@ -438,17 +433,19 @@ struct SquareViewLvl2: View {
                     .padding()
                     .foregroundColor(Color.primary)
                     .frame(width: 140.0)
-                    .disabled(isTitleVisible)
+                    .disabled(isGameStopped)
                     
                     Button("Restart"){
                         resetGrid()
                         movesTaken = 0
+                        isTitleVisible = false
+                        resetTimer()
                     }
                     .buttonStyle(.bordered)
                     .padding()
                     .foregroundColor(Color.primary)
                     .frame(width: 140.0)
-                    .disabled(isTitleVisible)
+                    .disabled(isGameStopped)
                     
                     
                     
@@ -470,44 +467,89 @@ struct SquareViewLvl2: View {
                     .padding(.all)
                     .foregroundColor(Color.black)
                             }
+            else if timeIsUp {
+                Text("Time's Up! Click 'New Game' to try again.")
+                    .font(.custom("Times New Roman", size: 35))
+                    .frame(width: 350, height: 150, alignment: .center)
+                    .aspectRatio(contentMode: .fit)
+                    .background(
+                        RoundedRectangle(cornerRadius: 25)
+                            .fill(Color.orange)
+                            .frame(alignment: .top)
+                    )
+                    .padding(.all)
+                    .foregroundColor(Color.black)
+            }
             
         }
-        .onAppear(perform: initializeSquares)
+        .onAppear {
+            randomise()
+            initializeSquares()
+        }
+        .onReceive(Timer.publish(every: 1, on: .main, in: .common).autoconnect()) { _ in
+            guard isTimed && !isTitleVisible && !timeIsUp else { return }
+            if secondsRemaining > 0 {
+                secondsRemaining -= 1
+            }
+            if secondsRemaining == 0 {
+                timeIsUp = true
+            }
+        }
         .fullScreenCover(isPresented: $startDirections){
             DirectionsView()
         }
     }
     func initializeSquares() {
         squares = zip3(shapes, colors, numbers).map { Square(sha: $0, col: $1, num: $2) }//arry of "squares" is created
-        Move.currentColor_1 = squares[0].col
-        Move.currentShape_1 = squares[0].sha
-        Move.currentNumber_1 = squares[0].num
-        
-        Move.currentColor_2 = squares[8].col
-        Move.currentShape_2 = squares[8].sha
-        Move.currentNumber_2 = squares[8].num
+        chooseGoalPositions()
+        updateFirstGoalSquare()
+        updateSecondGoalSquare()
         // Store the initial state
         initialColors = colors
         initialShapes = shapes
         initialNumbers = numbers
     }
-    func updateTopLeftSquare(){
-        Move.currentColor_1 = colors[0]
-        Move.currentShape_1 = shapes[0]
-        Move.currentNumber_1 = numbers[0]
+    private func chooseGoalPositions() {
+        if usesRandomGoalPositions {
+            let positions = Array(0..<(rows * columns)).shuffled()
+            goalIndexOne = positions[0]
+            goalIndexTwo = positions[1]
+        } else {
+            goalIndexOne = 0
+            goalIndexTwo = 8
+        }
+    }
+    func updateFirstGoalSquare(){
+        Move.currentColor_1 = colors[goalIndexOne]
+        Move.currentShape_1 = shapes[goalIndexOne]
+        Move.currentNumber_1 = numbers[goalIndexOne]
         
     }
     
-    func updateBottomRightSquare(){
+    func updateSecondGoalSquare(){
         
-        Move.currentColor_2 = colors[8]
-        Move.currentShape_2 = shapes[8]
-        Move.currentNumber_2 = numbers[8]
+        Move.currentColor_2 = colors[goalIndexTwo]
+        Move.currentShape_2 = shapes[goalIndexTwo]
+        Move.currentNumber_2 = numbers[goalIndexTwo]
     }
     private func resetGrid() {
             colors = initialColors
             shapes = initialShapes
             numbers = initialNumbers
+            updateFirstGoalSquare()
+            updateSecondGoalSquare()
+        }
+    private func resetTimer() {
+            timeIsUp = false
+            secondsRemaining = timeLimit
+        }
+    private func completeMove() {
+            movesTaken += 1
+            updateFirstGoalSquare()
+            updateSecondGoalSquare()
+            if checkWinner() == true{
+                isTitleVisible = true
+            }
         }
     func newGame() {
             colors = [.red, .indigo, .green, .purple, .brown, .orange, .cyan, .yellow, .gray].shuffled()
@@ -651,10 +693,3 @@ struct SquareViewLvl2: View {
                 .environmentObject(GameService())
         }
     }
-
-
-
-
-
-
-

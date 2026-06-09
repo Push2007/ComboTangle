@@ -13,6 +13,8 @@ struct StartView: View {
     @FocusState private var focus: Bool
     @State private var startGame = false
     @State private var startGame2 = false
+    @State private var startTimedGame = false
+    @State private var startMysteryGame = false
     @State private var startDirections = false
     @State private var startGameHard = false
     var body: some View {
@@ -25,6 +27,8 @@ struct StartView: View {
                         Text("Choose a ComboTangle mode").tag(GameType.firstScreen)
                         Text("EasyTangle").tag(GameType.playingScreen)
                         Text("TwinTangle").tag(GameType.playingLevel2)
+                        Text("TimedTangle").tag(GameType.timedTangle)
+                        Text("MysteryTangle").tag(GameType.mysteryTangle)
                         Text("Directions").tag(GameType.DirectionsScreen)
                         Text("Settings & Support").tag(GameType.helpScreen)
                     }
@@ -86,6 +90,50 @@ struct StartView: View {
                     .frame(width: 200.0, height: 50.0)
                     .buttonStyle(.borderedProminent)
                     .disabled(gameType == .firstScreen || gameType == .DirectionsScreen || gameType == .playingScreenHard || gameType == .playingScreen)
+                    Spacer()
+                    Image("Launch_screen_image")
+                        .resizable()
+                        .scaledToFit()
+                        .frame(width: 250)
+                    Text("ComboTangle")
+                        .font(.largeTitle) // Optionally, you can adjust the font size
+                        .fontWeight(.bold)
+                        .foregroundColor(.primary) // Optionally, you can change the text color
+                        .padding()
+                }
+                
+                if gameType == .timedTangle {
+                    
+                    Button("Start"){
+                        
+                        focus = true
+                        startTimedGame.toggle()
+                        
+                    }
+                    .frame(width: 200.0, height: 50.0)
+                    .buttonStyle(.borderedProminent)
+                    Spacer()
+                    Image("Launch_screen_image")
+                        .resizable()
+                        .scaledToFit()
+                        .frame(width: 250)
+                    Text("ComboTangle")
+                        .font(.largeTitle) // Optionally, you can adjust the font size
+                        .fontWeight(.bold)
+                        .foregroundColor(.primary) // Optionally, you can change the text color
+                        .padding()
+                }
+                
+                if gameType == .mysteryTangle {
+                    
+                    Button("Start"){
+                        
+                        focus = true
+                        startMysteryGame.toggle()
+                        
+                    }
+                    .frame(width: 200.0, height: 50.0)
+                    .buttonStyle(.borderedProminent)
                     Spacer()
                     Image("Launch_screen_image")
                         .resizable()
@@ -163,6 +211,18 @@ struct StartView: View {
             
             .fullScreenCover(isPresented: $startGame2){
                 GameViewLvl2()//for now
+                
+                
+            }
+            
+            .fullScreenCover(isPresented: $startTimedGame){
+                GameViewLvl2(isTimed: true, timeLimit: 60)
+                
+                
+            }
+            
+            .fullScreenCover(isPresented: $startMysteryGame){
+                GameViewLvl2(usesRandomGoalPositions: true)
                 
                 
             }
