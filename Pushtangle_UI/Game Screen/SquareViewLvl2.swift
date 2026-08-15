@@ -27,6 +27,12 @@ struct SquareViewLvl2: View {
     @State private var specs3: [Int] = [104, 100, 100, 100, 100, 100, 100, 100, 104]
     @State private var goalIndexOne: Int = 0
     @State private var goalIndexTwo: Int = 8
+    @State private var goalShapeOne: String = "cross.fill"
+    @State private var goalColorOne: Color = .red
+    @State private var goalNumberOne: Int = 1
+    @State private var goalShapeTwo: String = "diamond.fill"
+    @State private var goalColorTwo: Color = .gray
+    @State private var goalNumberTwo: Int = 9
     @State private var initialColors: [Color] = []//for reset grid
     @State private var initialShapes: [String] = []//for reset grid
     @State private var initialNumbers: [Int] = []//for reset grid
@@ -61,79 +67,87 @@ struct SquareViewLvl2: View {
         let shapeOne: Int = Int.random(in: 0...8)
         let numberOne: Int = Int.random(in: 0...8)
         let colorOne: Int = Int.random(in: 0...8)
-        Move.goalShape_1 = shapes[shapeOne]
-        Move.goalColor_1 = colors[colorOne]
-        Move.goalNumber_1 = numbers[numberOne]
+        goalShapeOne = shapes[shapeOne]
+        goalColorOne = colors[colorOne]
+        goalNumberOne = numbers[numberOne]
         
         let shapeTwo: Int = (shapeOne + Int.random(in: 1...8)) % 9
         let numberTwo: Int = (numberOne + Int.random(in: 1...8)) % 9
         let colorTwo: Int = (colorOne + Int.random(in: 1...8)) % 9
-        Move.goalShape_2 = shapes[shapeTwo]
-        Move.goalColor_2 = colors[colorTwo]
-        Move.goalNumber_2 = numbers[numberTwo]
+        goalShapeTwo = shapes[shapeTwo]
+        goalColorTwo = colors[colorTwo]
+        goalNumberTwo = numbers[numberTwo]
     }
     var body: some View {
         Spacer(minLength: 25.0)
         
-        HStack(spacing: 20.0){
-            HStack{
-                Text(" Goals:")
-                    .font(.custom("Times New Roman", size: 26))
+        HStack(spacing: 10.0){
+            HStack(spacing: 6.0){
+                Text("Goals:")
+                    .font(.custom("Times New Roman", size: 22))
+                    .lineLimit(1)
+                    .minimumScaleFactor(0.8)
                 
                     ZStack{
                         // Code for other devices
                         Rectangle()
-                            .fill(Move.goalColor_1)
-                            .frame(width: 60, height: 60)
+                            .fill(goalColorOne)
+                            .frame(width: 54, height: 54)
                             .overlay(
                                 Rectangle()
                                     .stroke(Color.primary, lineWidth: 4)
                                 )
-                        Image(systemName: Move.goalShape_1)
+                        Image(systemName: goalShapeOne)
                             .resizable()
                             .aspectRatio(contentMode: .fit)
-                            .frame(width: 43.333333)
+                            .frame(width: 39)
                             .foregroundColor(Color.black)
-                        Text(String(Move.goalNumber_1))
+                        Text(String(goalNumberOne))
                             .foregroundColor(Color.white)
-                            .font(.system(size: 17.3333333))
+                            .font(.system(size: 16))
                         
                         
                     }
                     ZStack{
                         // Code for other devices
                         Rectangle()
-                            .fill(Move.goalColor_2)
-                            .frame(width: 60, height: 60)
+                            .fill(goalColorTwo)
+                            .frame(width: 54, height: 54)
                             .overlay(
                                 Rectangle()
                                     .stroke(Color.blue, lineWidth: 4)
                                 )
-                        Image(systemName: Move.goalShape_2)
+                        Image(systemName: goalShapeTwo)
                             .resizable()
                             .aspectRatio(contentMode: .fit)
-                            .frame(width: 43.333333)
+                            .frame(width: 39)
                             .foregroundColor(Color.black)
-                        Text(String(Move.goalNumber_2))
+                        Text(String(goalNumberTwo))
                             .foregroundColor(Color.white)
-                            .font(.system(size: 17.3333333))
+                            .font(.system(size: 16))
                         
                         
                     }
                     
             }
-            .frame(maxWidth: .infinity, alignment: .center)
+            .layoutPriority(1)
+            Spacer(minLength: 6)
             VStack(spacing: 4.0){
                 Text("Moves: \(movesTaken)")
-                    .font(.custom("Times New Roman", size: 26))
+                    .font(.custom("Times New Roman", size: 22))
+                    .lineLimit(1)
+                    .minimumScaleFactor(0.8)
                 if isTimed {
                     Text("Time: \(secondsRemaining)s")
-                        .font(.custom("Times New Roman", size: 24))
+                        .font(.custom("Times New Roman", size: 20))
+                        .lineLimit(1)
+                        .minimumScaleFactor(0.8)
                         .foregroundColor(secondsRemaining <= 10 ? Color.red : Color.primary)
                 }
             }
-            .frame(maxWidth: .infinity, alignment: .center)
-            Spacer(minLength: 10.5)
+            .frame(minWidth: 90, alignment: .center)
+            .layoutPriority(1)
+            Spacer(minLength: 6)
         }
         Spacer()
         
@@ -559,7 +573,7 @@ struct SquareViewLvl2: View {
             initializeSquares()
         }
     private func checkWinner() -> Bool{
-        if (Move.currentColor_1 == Move.goalColor_1 && Move.currentShape_1 == Move.goalShape_1 && Move.currentNumber_1 == Move.goalNumber_1 && Move.currentColor_2 == Move.goalColor_2 && Move.currentShape_2 == Move.goalShape_2 && Move.currentNumber_2 == Move.goalNumber_2){
+        if (Move.currentColor_1 == goalColorOne && Move.currentShape_1 == goalShapeOne && Move.currentNumber_1 == goalNumberOne && Move.currentColor_2 == goalColorTwo && Move.currentShape_2 == goalShapeTwo && Move.currentNumber_2 == goalNumberTwo){
             return true
         }
         return false

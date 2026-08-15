@@ -31,7 +31,7 @@ struct GameViewLvl2: View {
                     ToolbarItem(placement: .navigationBarLeading) {
                         Text("(C = Color) (S = Shape) (N = Number)")
                             .multilineTextAlignment(.center)
-                            .font(.system(size: 14))
+                            .font(.system(size: 12))
                     }
                     ToolbarItem(placement: .navigationBarTrailing) {
                         Button(action: {
