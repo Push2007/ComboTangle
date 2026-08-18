@@ -26,22 +26,26 @@ struct GameView: View {
                 }
                 .toolbar {
                     ToolbarItem(placement: .navigationBarLeading) {
-                        Text("(C = Color) (S = Shape) (N = Number)")
-                            .multilineTextAlignment(.center)
-                            .font(.system(size: 12))
+                        VStack(alignment: .leading, spacing: 2) {
+                            Text("C = Color")
+                            Text("S = Shape   N = Number")
+                        }
+                        .font(.system(size: 11, weight: .semibold))
+                        .lineLimit(1)
+                        .fixedSize(horizontal: true, vertical: true)
                     }
                     ToolbarItem(placement: .navigationBarTrailing) {
                         Button(action: {
                             showExitAlert = true
                         }) {
-                            HStack(spacing: 1.0) {
+                            HStack(spacing: 4.0) {
                                 Image(systemName: "arrowshape.turn.up.backward.circle")
                                 Text("Back")
                             }
+                            .frame(height: 20, alignment: .center)
                         }
                         .foregroundColor(Color.primary)
                         .buttonStyle(.bordered)
-                        .padding(.bottom)
                     }
                 }
                 .alert(isPresented: $showExitAlert) {
